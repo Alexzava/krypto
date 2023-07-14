@@ -9,6 +9,9 @@ Simple and secure files encryption tool.
 
 ![Screenshot of KRYPTO tool](screenshot.png)
 
+### [Download](https://github.com/Alexzava/krypto/releases)
+
+
 ## How to use
 
 **Encrypt**
