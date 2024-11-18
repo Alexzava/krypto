@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Krypto</title>
+</head>
+<body class="d-flex flex-column">
+    <header class="mt-4 d-flex flex-row align-items-center">
+        <img src="src/assets/images/logo.png" width="50px">
+        <h1 class="header-title ms-1">Krypto</h1>
+    </header>
+
+    <main class="app container">
+        <div id="filePickerView" class="file-picker-view d-flex flex-column">
+            <div id="filePickerSelector" class="file-picker-area dashed-border d-flex flex-column justify-content-center align-items-center">
+                <div class="d-flex flex-column justify-content-center align-items-center wails-drop-target-active" onclick="ShowFilePickerDialog()" role="button">
+                    <img src="src/assets/icons/add.svg">
+                    <h3 class="file-picker-title mt-3">
+                        Drag and drop files here
+                    </h3>
+                    <p>
+                        or <b>click</b> to choose a file
+                    </p>
+                </div>
+            </div>
+
+            <div id="filePickerList" class="d-none file-picker-area dashed-border bg-grey d-flex flex-column justify-content-center align-items-center">
+                <ul class="p-0">
+                    <li class="file-item d-flex flex-column p-3">
+                        <div class="d-flex flex-row align-items-center">
+                            <img src="src/assets/icons/file.svg">
+                            <div class="ms-2">
+                                <h4 id="selectedFileName" class="file-name"></h4>
+                            </div>
+                            <i id="removeSelectedFileButton" class="ms-4" role="button">
+                                <img src="src/assets/icons/close.svg">
+                            </i>
+                        </div>
+                        <div id="progressContainer" class="mt-3">
+                            <div class="progress" role="progressbar">
+                                <div id="progressBar" class="progress-bar" style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="actionButtonsView" class="d-none mt-4 d-flex flex-row justify-content-between align-items-center">
+                <button id="encryptActionButton" class="btn" type="button">
+                    <img src="src/assets/icons/encrypt.svg">
+                    Encrypt
+                </button>
+
+                <b>or</b>
+
+                <button id="decryptActionButton" class="btn" type="button">
+                    <img src="src/assets/icons/decrypt.svg">
+                    Decrypt
+                </button>
+            </div>
+        </div>
+
+        <div class="file-action-area pt-4">
+            <div id="introView">
+                <h2 class="main-title">
+                    Simple and secure file encryption
+                </h2>
+                <p>
+                   Krypto allows you to protect your private documents. 
+                   You can choose to use symmetric encryption with a personal secret password, or asymmetric encryption through public key exchange.
+                </p>
+            </div>
+
+            <div id="passwordView" class="d-flex flex-column d-none">
+                <h2 class="main-title">
+                    Choose a password method
+                </h2>
+                <div class="d-flex flex-row mt-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="modeSelector" id="passwordModeSelector" checked>
+                        <label class="form-check-label" for="passwordModeSelector">
+                            <b>Use Password</b>
+                        </label>
+                    </div>
+                    <div class="form-check ms-3">
+                        <input class="form-check-input" type="radio" name="modeSelector" id="publicKeyModeSelector">
+                        <label class="form-check-label" for="publicKeyModeSelector">
+                            <b>Use Public Key</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="passwordModeContainer" class="mt-4">
+                    <div class="form-floating d-flex flex-row">
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+                        <label for="passwordInput">Choose a password</label>
+                        <button id="passwordVisibilityButton" type="button" class="btn btn-outlined ms-2">
+                            <img id="showPasswordIcon" src="src/assets/icons/eye-open.svg">
+                        </button>
+                    </div>
+
+                    <p>Password must be at least 8 characters long</p>
+
+                    <button type="button" class="btn mt-2" onclick="GenerateRandomPassword()">
+                        <img src="src/assets/icons/generate.svg">
+                        Generate
+                    </button>
+                </div>
+            
+                <div id="publicKeyModeContainer" class="mt-4 d-none">
+                    <div class="form-floating mt-2 d-flex flex-row">
+                        <input type="text" class="form-control" id="personalPrivateKeyInput" placeholder="Personal Private Key">
+                        <label for="personalPrivateKeyInput">Personal Private Key</label>
+
+                        <button type="button" class="btn btn-outlined ms-2" onclick="ImportPrivateKey()">
+                            <img src="src/assets/icons/upload.svg">
+                        </button>
+                    </div>
+                    <p class="mt-2">
+                        Paste or 
+                        <a href="javascript:void(0)" class="link" data-bs-toggle="modal" data-bs-target="#generateKeyPairModal" onclick="GenerateKeyPair()">generate new key pair</a>
+                    </p>
+                
+                    <div class="form-floating mt-3">
+                        <input type="text" class="form-control" id="recipientPublicKeyInput" placeholder="Recipient's Public Key">
+                        <label for="recipientPublicKeyInput">Recipient's Public Key</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="generateKeyPairModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generate Key Pair</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="generateKeyPairPublicKeyText" placeholder="Your Public Key">
+                        <label for="generateKeyPairPublicKeyText">Public Key</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="generateKeyPairPrivateKeyText" placeholder="Your Private Key">
+                        <label for="generateKeyPairPrivateKeyText">Private Key</label>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center">
+                        <img id="publicKeyQRCodeImage" src="" data-attr="">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="switchHatshShareLink">
+                            <label class="form-check-label" for="switchHatshShareLink">
+                                Hat.sh
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons mt-4 d-flex flex-row justify-content-between">
+                        <button type="button" class="btn btn-outlined" onclick="ExportPrivateKey()">
+                            <img src="src/assets/icons/download.svg">
+                            Export
+                        </button>
+                        <button type="button" class="btn btn-outlined" onclick="CopyShareLink()">
+                            <img id="copyShareLinkButtonIcon" src="src/assets/icons/copy.svg">
+                            <span id="copyShareLinkButtonText">Copy</span>
+                        </button>
+                        <button type="button" class="btn" onclick="GenerateKeyPair()">
+                            <img src="src/assets/icons/generate.svg" width="18px">
+                            Generate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logsModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Logs</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control logs" id="logsTextArea" rows="10" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="errorModalContent" class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid mb-2 d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row">
+            <a href="#" class="link" data-bs-toggle="modal" data-bs-target="#logsModal">Show logs</a>
+            <a href="#" class="ms-4 link" onclick="OpenRepository()">Source code</a>
+            <a href="#" class="ms-4 link" data-bs-toggle="modal" data-bs-target="#generateKeyPairModal" onclick="GenerateKeyPair()">Generate new key pair</a>
+        </div>
+        <div class="d-flex flex-row">
+           <a href="#" class="link" onclick="OpenRepository()">v2.0.0-beta1</a>
+        </div>
+    </footer>
+
+    <script src="./src/main.js" type="module"></script>
+</body>
+</html>

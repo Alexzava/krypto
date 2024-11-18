@@ -1,0 +1,25 @@
+package main
+
+const (
+	CHUNK_SIZE = 64 * 1024 * 1024
+	SIGNATURE_SYMMETRIC = "zDKO6XYXioc"
+	SIGNATURE_SYMMETRIC_LEN = 11
+	
+	SIGNATURE_ASYMMETRIC = "hTWKbfoikeg"
+	SIGNATURE_ASYMMETRIC_LEN = 11
+
+
+	LINK_APP = "app://krypto/"
+	LINK_HAT_SH = "https://hat.sh/?tab=decryption&publicKey="
+	LINK_REPO = "https://github.com/alexzava/krypto"
+
+	PASSWORD_DEFAULT_LEN = 20
+	PASSWORD_LEN_MIN = 8
+	PASSWORD_GENERATOR_ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789_#!@*%$^&"
+
+	MODE_PASSWORD = "MODE_PASSWORD"
+	MODE_PUBLIC_KEY = "MODE_PUBLIC_KEY"
+
+	ACTION_ENCRYPT = "ACTION_ENCRYPT"
+	ACTION_DECRYPT = "ACTION_DECRYPT"
+)

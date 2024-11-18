@@ -1,0 +1,16 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "Krypto",
+  "outputfilename": "Krypto",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "Alex Zava",
+    "email": "9405622+Alexzava@users.noreply.github.com"
+  },
+  "info": {
+    "productVersion": "2.0.0-beta1"
+  }
+}

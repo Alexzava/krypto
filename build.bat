@@ -1,1 +1,0 @@
-fyne package -os windows

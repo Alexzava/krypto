@@ -1,49 +1,78 @@
-# KRYPTO
+# Krypto
 
+Krypto is a simple and secure app to protect your private documents with strong encryption.
+
+### Key Features
+- **XChaCha20-Poly1305** algorithm for symmetric encryption ([Read more](https://doc.libsodium.org/secret-key_cryptography/secretstream))
+- **Argon2ID** as password key derivation ([Read more](https://doc.libsodium.org/password_hashing/default_phf))
+- **X25519** as key exchange ([Read more](https://doc.libsodium.org/key_exchange))
+- Designed to be fully compatible with [Hat.sh](https://hat.sh/)
+
+All cryptographic algorithms are from the [libsodium](https://doc.libsodium.org/) library.
+
+![Screenshot](images/screenshot1.png)
+
+## Installation
+
+### Windows
+
+* [Download Krypto for Windows](https://github.com/Alexzava/krypto/releases)
+
+### Linux
+
+**Compile and Install Libsodium**
+
+- [Download Libsodium 1.0.20](https://download.libsodium.org/libsodium/releases/libsodium-1.0.20-stable.tar.gz)
+- Compile and Install
+```text
+./configure
+
+make && make check
+
+sudo make install
+
+sudo ldconfig
 ```
-█▄▀ █▀█ █▄█ █▀█ ▀█▀ █▀█
-█░█ █▀▄ ░█░ █▀▀ ░█░ █▄█
-```
 
-Simple and secure files encryption tool.
+* [Download Krypto for Linux](https://github.com/Alexzava/krypto/releases)
 
-![Screenshot of KRYPTO tool](screenshot.png)
+### Android
 
-### [Download](https://github.com/Alexzava/krypto/releases)
+* [Download Krypto for Android](https://github.com/Alexzava/krypto-android)
 
+## Open source resources
 
-## How to use
-
-**Encrypt**
-```
-krypto -e <inputfile>
-```
-
-**Decrypt**
-```
-krypto -d <inputfile>
-```
-
-**-del** to overwrite and remove the file when done
-
-**-cli** to use CLI mode
-
-## How does it work?
-
-Krypto uses AES-CTR with a key length of 256bit and HMAC-SHA3 (256bit key | 512bit digest) for Encrypt-then-Mac operation as authenticated encryption.
-
-* Generate random *iv* (16 byte) for encryption
-* Generate random *salt* (16 byte) for *master key*
-* Genereate a *master key* (32 bytes) from user password using Argon2id
-* Derive *encryption key* (32 byte) from *master key* using HKDF-SHA3
-* Derive *mac key* (32 byte) from *master key* using HKDF-SHA3
-* Encrypt with AES-CTR
-* Calculate *tag* with HMAC-SHA3
+* [Wails](https://github.com/wailsapp/wails)
+* [go-qrcode](https://github.com/skip2/go-qrcode)
+* [purego](https://github.com/ebitengine/purego)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [Libsodium](https://doc.libsodium.org/)
+* [Iconoir](https://github.com/iconoir-icons/iconoir)
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+Krypto is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+```text
+MIT License
 
-**Krypto is a personal project for educational purposes, the code has not been independently audited.**
+Copyright (c) 2024 Alex Zava
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

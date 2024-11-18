@@ -1,8 +1,0 @@
-Website = "https://alexzava.com"
-
-[Details]
-  Icon = "Icon.ico"
-  Name = "KRYPTO"
-  ID = "com.alexzava.krypto"
-  Version = "1.0.0"
-  Build = 8
